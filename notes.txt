@@ -1,0 +1,19 @@
+Project: peacock
+App for teaching-learning process
+Created: 16-06-2006
+Author: Mohan A
+
+Project folder: C:\xampp746\htdoc\projects\peacock@Innova
+
+16-06-2020
+----------
+to create laravel project
+->composer create-project --prefer-dist laravel/laravel peacock
+
+to initialise the git repo
+->git init
+->git add *
+->git commit -m "initial installation"
+->git remote add origin http://github.com/mohanavula/peacock.git
+->git push -u origin master
+
