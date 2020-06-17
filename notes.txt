@@ -17,3 +17,31 @@ to initialise the git repo
 ->git remote add origin http://github.com/mohanavula/peacock.git
 ->git push -u origin master
 
+to intall mongodb
+->composer require jenssegres/mongodb:dev-develop
+// add entry "Jenssegers\Mongodb\MongodbServiceProvider::class," to config/app.php
+download and copy php mongodb driver "php_mongodb.dll" to php/ext folder. version 1.7.4-7.4-ts-vc15-x64
+add entry "extension=php_mongodb.dll" to php.ini
+
+17-06-2020
+----------
+changes to .env file
+->APP_NAME=Peacock
+->DB_CONNECTION=mongodb
+->DB_PORT=27017
+->DB_DATABASE=peacock
+->DB_USERNAME=
+->DB_PASSWORD=
+
+to add mongodb database connection 
+add mongodb connection settings to config/database.php
+'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', 27017),
+            'database' => env('DB_DATABASE', 'homestead'),
+            'username' => env('DB_USERNAME', 'homestead'),
+            'password' => env('DB_PASSWORD', 'secret'),
+        ], 
+
+  
