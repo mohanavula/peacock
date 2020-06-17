@@ -44,4 +44,63 @@ add mongodb connection settings to config/database.php
             'password' => env('DB_PASSWORD', 'secret'),
         ], 
 
-  
+to set up Vue with Auth
+->composer require laravel/ui
+->php artisan ui vue --auth
+
+to set up Tailwindcss
+->npm install tailwindcss
+add the following @tailwind directives to resources/css/app.css
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+->npx tailwindcss init  // this will create tailwind.config.js
+use postCss method of laravel mix to process css. 
+make changes to webpack.mix.js as follows:
+  mix.js('resources/js/app.js', 'public/js')
+    .postCss('resources/css/app.css', 'public/css', [
+    require('tailwindcss'),
+  ]);
+->npm install // to install packages 
+->php artisan serve   // to start the local MongodbServiceProvider
+
+to enable authentication
+change: app/User.php
+  use Illuminate\Notifications\Notifiable;
+  use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
+  use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+  use Illuminate\Contracts\Auth\Authenticatable;
+  use Illuminate\Contracts\Auth\MustVerifyEmail;
+  // use Illuminate\Foundation\Auth\User as Authenticatable;
+  class User extends Eloquent implements Authenticatable
+  {
+      use Notifiable;
+      use AuthenticatableTrait;
+
+      /**
+      * The attributes that are mass assignable.
+      *
+      * @var array
+      */
+
+      protected $connection = 'mongodb';
+      protected $collection = 'users';
+
+      
+      protected $fillable = [
+          'name', 'email', 'password', 'college_id'
+      ];
+change migrations: create_users_table.php
+  public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            // $table->id();
+            // $table->string('name');
+            $table->unique('email');
+            $table->unique('college_id');
+            //$table->timestamp('email_verified_at')->nullable();
+            //$table->string('password');
+            $table->rememberToken();
+            $table->timestamps();
+        });
+    }
