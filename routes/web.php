@@ -12,12 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
 
-Route::get('/{any?}', function () {
-    // return view('welcome');
-    return view('app');
-});
+// Auth::routes();
+
+// Route::get('/{any?}', function () {
+//     // return view('welcome');
+//     return view('app');
+// });
 
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');
+
+// Route to handle page reload in Vue except for api routes
+Route::get('/{any?}', function (){
+    return view('welcome');
+})->where('any', '^(?!api\/)[\/\w\.-]*');
